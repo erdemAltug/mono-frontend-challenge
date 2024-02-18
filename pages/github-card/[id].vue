@@ -13,8 +13,8 @@
   <div>
     <v-card class="link-generate-card" width="517" elevation="12">
       <v-row
+      class="selected-color"
         style="
-          background-color: #28cba4;
           height: 100px;
           justify-content: center;
         "
@@ -192,6 +192,10 @@ function generateLink() {
 
 .flex-col {
   display: flex;
+}
+
+.selected-color {
+  background-color: v-bind("selectedColor");
 }
 
 .btn-span {
