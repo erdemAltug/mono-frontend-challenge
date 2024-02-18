@@ -1,32 +1,31 @@
 <template>
   <v-app-bar :elevation="2">
-    <template v-slot:prepend>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    </template>
-
     <v-app-bar-title>Github Actions</v-app-bar-title>
   </v-app-bar>
 
   <div>
     <v-card class="link-generate-card" width="800" elevation="12">
       <v-row class="center-row">
-        <v-col class="radius-input" cols="4">
+        <v-col class="radius-input" cols="5">
           <v-text-field
-            v-model="firstName"
+            v-model="userName"
             class="centered-input"
-            solo
-            rounded
+            variant="solo"
             placeholder="GitHub Username"
             label="GitHub Username"
           ></v-text-field>
         </v-col>
 
         <v-col class="radius-input" cols="1">
-          <v-text-field solo rounded readonly> / </v-text-field>
+          <v-text-field variant="solo" readonly> / </v-text-field>
         </v-col>
 
-        <v-col cols="4">
-          <v-text-field solo rounded label="Label"></v-text-field>
+        <v-col cols="5">
+          <v-text-field
+            v-model="repoName"
+            variant="solo"
+            label="Repo"
+          ></v-text-field>
         </v-col>
       </v-row>
 
@@ -35,116 +34,136 @@
           <span class="input-text">Select a Template Color : </span>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="5">
           <v-select
             label="Select"
-            rounded
-            :items="[
-              'California',
-              'Colorado',
-              'Florida',
-              'Georgia',
-              'Texas',
-              'Wyoming',
-            ]"
+            variant="solo"
+            :items="['red', 'green', 'blue', 'black', 'white', 'purple']"
           ></v-select>
         </v-col>
       </v-row>
 
-      <v-row style="justify-content: flex-start; margin: 2rem">
-        <v-col cols="5">
+      <v-row class="center-row">
+        <v-col cols="11">
           <span class="input-text">Select an Icon : </span>
         </v-col>
       </v-row>
 
       <v-row class="center-row">
         <v-card width="500" style="justify-content: center; min-height: 5rem">
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
-          <v-btn class="ma-2" fab>
-            <v-icon> mdi-account </v-icon>
-          </v-btn>
+          <div class="ma-2">
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+            <v-btn class="ma-2" fab>
+              <v-icon> mdi-account </v-icon>
+            </v-btn>
+          </div>
         </v-card>
       </v-row>
     </v-card>
 
-    <v-btn @click="submitLink()" rounded class="link-btn" color="purple">
+    <div class="buttons-div">
+      <v-btn v-if="generatedLink" @click="generateLink()" rounded class="link-btn" color="purple">
       <v-icon right dark> mdi-link </v-icon>
       Generate Link
     </v-btn>
+    <v-btn v-if="generatedLink" @click="generateLink()" rounded class="link-btn" color="purple">
+      <v-icon right dark> mdi-link </v-icon>
+      Generate Link
+    </v-btn>
+    <v-btn @click="generateLink()" rounded class="link-btn" color="purple">
+      <v-icon right dark> mdi-link </v-icon>
+      Generate Link
+    </v-btn>
+    </div>
+
+
+    <!-- <snackbar :snackbar="snackbarValue"></snackbar> -->
   </div>
+
+  <p v-if="users">Page visits: {{ users.name }}</p>
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from "pinia";
+import { useGithubStore } from "../store/store";
 import { ref, onMounted } from "vue";
-const input = ref("bzzt");
-const firstName = defineModel('firstName')
-const uri = "https://api.github.com/users/";   
 
+const githubStore = useGithubStore();
+const { userName } = storeToRefs(githubStore);
+const { repoName } = storeToRefs(githubStore);
+const { users }: any = storeToRefs(githubStore);
+const snackBar = ref(false);
+const generatedLink = ref("");
 
-async function submitLink() {
-    const {data : user}  = await useFetch(uri + firstName.value);
-    console.log("user" , user);
+function generateLink() {
+  if (userName.value && repoName.value) {
+    githubStore.findGithubRepo();
+  } else if (userName) {
+    githubStore.findGithubUser();
+  } else {
+    return { message: "Please fill the inputs" };
+  }
 }
-
-
 </script>
 
 <style scoped="scss">
-.v-field__outline {
-  display: none !important;
-}
-
 .link-btn {
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-right: auto;
   margin-left: auto;
   display: flex;
 }
+.v-col-6 {
+  display: flex;
+}
 
+.buttons-div {
+  display: flex;
+  margin-left: 25%;
+  margin-right: 25%;
+}
 .input-text {
-  font-family: "Times New Roman", Times, serif;
   font-size: large;
+  display: flex;
   justify-content: center;
-  vertical-align: center;
+  align-items: center;
 }
 .link-generate-card {
   margin-top: 10rem;
   margin-left: auto;
   margin-right: auto;
-  min-height: 30rem;
   background-color: rgb(250, 250, 250);
   border-radius: 24px;
 }
@@ -152,6 +171,7 @@ async function submitLink() {
 .center-row {
   justify-content: center;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .radius-input {
