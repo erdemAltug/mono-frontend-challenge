@@ -103,7 +103,7 @@
           @click="generateLink()"
           class="link-btn"
           color="purple"
-          :disabled="!userName"
+          :disabled="!repoName"
         >
           <v-icon right dark> mdi-link </v-icon>
           Generate Link
@@ -126,13 +126,8 @@
         >
       </div>
     </div>
-    <v-snackbar color="success" v-model="snackbar">
-      Found the repo
-      <template v-slot:actions>
-        <v-btn color="pink" variant="text" @click="snackbar = false">
-          Close
-        </v-btn>
-      </template>
+    <v-snackbar :color="snackbar.color" v-model="snackbar.show">
+      {{ snackbar.message }}
     </v-snackbar>
   </v-container>
 </template>
@@ -152,7 +147,7 @@ const { icons } = storeToRefs(githubStore);
 const { selectedColor } = storeToRefs(githubStore);
 const { selectedIcon } = storeToRefs(githubStore);
 const base = useRequestURL().origin;
-const snackbar = ref(false);
+const snackbar = ref({ color: "", show: false, message: "" });
 const toggle = ref(0);
 
 function selectIcon(selectIcon: any) {
@@ -162,13 +157,19 @@ function selectIcon(selectIcon: any) {
 
 watch(selectedLink, (newX) => {
   if (newX) {
-    snackbar.value = true;
+    snackbar.value.show = true;
+    snackbar.value.message = "Repo Found";
+    snackbar.value.color = "success";
   }
 });
 
 function generateLink() {
   if (userName.value && repoName.value) {
-    githubStore.findGithubRepo();
+    githubStore.findGithubRepo().catch((error) => {
+      snackbar.value.show = true;
+      snackbar.value.message = "Repo Not Found";
+      snackbar.value.color = "error";
+    });
   } else if (userName) {
     githubStore.findGithubUser();
   } else {
@@ -238,14 +239,12 @@ function generateLink() {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-
 .slash {
   margin-top: 2rem;
   @media only screen and (max-width: 600px) {
     display: none;
   }
 }
-
 .icon-card {
   @media only screen and (max-width: 600px) {
     display: grid;
