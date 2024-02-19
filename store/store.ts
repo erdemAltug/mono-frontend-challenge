@@ -53,7 +53,7 @@ export const useGithubStore = defineStore({
         {
           headers: {
             Authorization:
-              "Bearer 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 ",
+              "Bearer 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",
           },
         }
       );
@@ -69,7 +69,7 @@ export const useGithubStore = defineStore({
         {
           headers: {
             Authorization:
-              "Bearer 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 ",
+              "Bearer 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",
           },
         }
       );
@@ -87,7 +87,7 @@ export const useGithubStore = defineStore({
         {
           headers: {
             Authorization:
-              "Bearer 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",
+              "Bearer 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",
           },
         }
       );
@@ -100,7 +100,7 @@ export const useGithubStore = defineStore({
         {
           headers: {
             Authorization:
-              "Bearer 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",
+              "Bearer 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",
           },
           method: "put",
         }

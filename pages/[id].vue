@@ -12,23 +12,17 @@
 
   <v-container class="container">
     <v-card class="link-generate-card" elevation="12">
-      <v-row
-        class="selected-color"
-        style="height: 100px; justify-content: center"
-      >
-        <v-col
-          style="display: flex; transform: translateY(65%); z-index: 99999"
-          cols="3"
-        >
+      <v-row class="selected-color">
+        <v-col class="repo-name" cols="3">
           <span class="centered-span"> {{ repoData[0].name }} </span>
         </v-col>
-        <v-col style="transform: translateY(65%); z-index: 99999" cols="2">
+        <v-col class="repo-name" cols="2">
           <img :src="selectedIcon.path" alt="" width="50" />
         </v-col>
       </v-row>
 
       <v-row class="center-row">
-        <v-col cols="10" style="margin-top: 3rem">
+        <v-col cols="10" class="mt-9">
           <v-text-field
             variant="solo"
             class="input-color"
@@ -36,7 +30,7 @@
             rounded
             readonly
           >
-            <span style="font-weight: 100">
+            <span class="font-weight-100">
               {{ repoData[0].description }}
             </span>
           </v-text-field>
@@ -44,11 +38,11 @@
       </v-row>
 
       <v-row class="center-row">
-        <v-col style="align-items: start" cols="6">
+        <v-col cols="6">
           <span class="input-text">Top Contrubiuters: </span>
         </v-col>
 
-        <v-col style="display: flex" cols="4">
+        <v-col class="d-flex" cols="4">
           <v-btn class="star-btn" @click="githubStore.updateStarring()">
             <v-icon> mdi-star </v-icon> Star
           </v-btn>
@@ -60,7 +54,7 @@
 
       <v-row class="center-row">
         <v-card width="500" class="contributors-card">
-          <v-row style="justify-content: center">
+          <v-row class="justify-center">
             <v-col class="d-flex mt-4" cols="5">
               <img
                 class="img-icon mr-4"
@@ -69,7 +63,7 @@
               />
               <div>
                 <span> {{ repoData[0].owner.login }}</span>
-                <span style="display: block">
+                <span class="d-block">
                   {{ contributor[0].contributions }} commits
                 </span>
               </div>
@@ -83,7 +77,7 @@
               />
               <div>
                 <span> {{ repoData[0].owner.login }}</span>
-                <span style="display: block">
+                <span class="d-block">
                   {{ contributor[0].contributions }} commits
                 </span>
               </div>
@@ -195,6 +189,8 @@ function generateLink() {
 
 .selected-color {
   background-color: v-bind("selectedColor");
+  height: 100px;
+  justify-content: center;
 }
 
 .btn-span {
@@ -223,6 +219,12 @@ function generateLink() {
   justify-content: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.repo-name {
+  display: flex;
+  transform: translateY(65%);
+  z-index: 99999;
 }
 
 .img-icon {

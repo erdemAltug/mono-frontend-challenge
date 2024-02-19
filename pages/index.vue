@@ -44,7 +44,7 @@
               <span class="input-text mt-4">Select a Template Color : </span>
             </v-col>
 
-            <v-col style="display: flex" lg="6" md="4" xs="3">
+            <v-col class="d-flex" lg="6" md="4" xs="3">
               <pre class="selected-color"></pre>
               <v-select
                 hide-details
@@ -67,12 +67,7 @@
 
           <v-row class="center-row">
             <v-card class="icon-card">
-              <div
-                style="display: flex"
-                v-for="item in icons"
-                :key="item.value"
-                class="ma-1"
-              >
+              <div v-for="item in icons" :key="item.value" class="d-flex ma-1">
                 <v-btn-toggle>
                   <v-btn @click="selectIcon(item)" class="ma-2" fab>
                     <img width="30" :src="item.path" alt="" />
@@ -159,7 +154,6 @@ const { selectedIcon } = storeToRefs(githubStore);
 const base = useRequestURL().origin;
 const snackbar = ref(false);
 const toggle = ref(0);
-
 
 function selectIcon(selectIcon: any) {
   toggle.value = selectIcon.value;
