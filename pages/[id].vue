@@ -17,7 +17,7 @@
           <span class="centered-span"> {{ repoData[0].name }} </span>
         </v-col>
         <v-col class="repo-name" cols="2">
-          <img :src="selectedIcon.path" alt="" width="50" />
+          <img :src="selectedIcon.path" alt="" class="icon-img" />
         </v-col>
       </v-row>
 
@@ -89,11 +89,11 @@
     </v-card>
 
     <div class="buttons-div">
-      <v-btn @click="icnpath()" rounded class="link-btn" color="#1DA1F2">
+      <v-btn @click="githubStore.updateStarring()" rounded class="link-btn" color="#1DA1F2">
         <v-icon right dark> mdi-twitter </v-icon>
         Share
       </v-btn>
-      <v-btn to="/" rounded class="link-btn" color="purple">
+      <v-btn @click="regenerateLink()" rounded class="link-btn" color="purple">
         <v-icon right dark> mdi-link </v-icon>
         Generate Your Own Link
       </v-btn>
@@ -113,20 +113,12 @@ const { contributor } = storeToRefs(githubStore);
 const { selectedColor } = storeToRefs(githubStore);
 const { repoData } = storeToRefs(githubStore);
 const { selectedIcon } = storeToRefs(githubStore);
+const router = useRouter()
 
-function icnpath() {
-  console.log("selected", selectedIcon);
+function regenerateLink() {
+router.go(-1);
 }
 
-function generateLink() {
-  if (userName.value && repoName.value) {
-    githubStore.findGithubRepo();
-  } else if (userName) {
-    githubStore.findGithubUser();
-  } else {
-    return { message: "Please fill the inputs" };
-  }
-}
 </script>
 
 <style scoped="scss">
@@ -141,6 +133,11 @@ function generateLink() {
 .star-btn {
   background-color: #fecf58;
   color: white;
+}
+
+.icon-img {
+  width: 40px;
+  height: 40px;
 }
 .contributors-card {
   justify-content: center;

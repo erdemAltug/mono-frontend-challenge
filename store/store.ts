@@ -52,7 +52,7 @@ export const useGithubStore = defineStore({
         `https://api.github.com/users/${this.userName}`,
         {
           headers: {
-            Authorization: "Bearer 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",
+            Authorization: "Bearer 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",
           },
         }
       );
@@ -67,7 +67,7 @@ export const useGithubStore = defineStore({
         `https://api.github.com/repos/${this.userName}/${this.repoName}`,
         {
           headers: {
-            Authorization: "Bearer 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",
+            Authorization: "Bearer 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",
           },
         }
       );
@@ -84,7 +84,7 @@ export const useGithubStore = defineStore({
         `https://api.github.com/repos/${this.userName}/${this.repoName}/contributors`,
         {
           headers: {
-            Authorization: "Bearer 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",
+            Authorization: "Bearer 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",
           },
         }
       );
@@ -96,7 +96,7 @@ export const useGithubStore = defineStore({
         `https://api.github.com/user/starred/${this.userName}/${this.repoName}`,
         {
           headers: {
-            Authorization: "Bearer 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",
+            Authorization: "Bearer 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",
           },
           method: "put",
         }
