@@ -10,8 +10,8 @@
     <v-app-bar-title>Github Actions</v-app-bar-title>
   </v-app-bar>
 
-  <div>
-    <v-card class="link-generate-card" width="517" elevation="12">
+  <v-container class="container">
+    <v-card class="link-generate-card" elevation="12">
       <v-row
         class="selected-color"
         style="height: 100px; justify-content: center"
@@ -21,6 +21,9 @@
           cols="3"
         >
           <span class="centered-span"> {{ repoData[0].name }} </span>
+        </v-col>
+        <v-col style="transform: translateY(65%); z-index: 99999" cols="2">
+          <img :src="selectedIcon.path" alt="" width="50" />
         </v-col>
       </v-row>
 
@@ -58,7 +61,7 @@
       <v-row class="center-row">
         <v-card width="500" class="contributors-card">
           <v-row style="justify-content: center">
-            <v-col class="flex-col mt-4" cols="5">
+            <v-col class="d-flex mt-4" cols="5">
               <img
                 class="img-icon mr-4"
                 :src="repoData[0].owner.avatar_url"
@@ -72,7 +75,7 @@
               </div>
             </v-col>
 
-            <v-col class="flex-col mt-4" cols="5">
+            <v-col class="d-flex mt-4" cols="5">
               <img
                 class="img-icon mr-4"
                 :src="repoData[0].owner.avatar_url"
@@ -92,27 +95,21 @@
     </v-card>
 
     <div class="buttons-div">
-      <v-btn @click="generateLink()" rounded class="link-btn" color="#1DA1F2">
+      <v-btn @click="icnpath()" rounded class="link-btn" color="#1DA1F2">
         <v-icon right dark> mdi-twitter </v-icon>
         Share
       </v-btn>
-      <v-btn
-        @click="backToCardGenerator()"
-        rounded
-        class="link-btn"
-        color="purple"
-      >
+      <v-btn to="/" rounded class="link-btn" color="purple">
         <v-icon right dark> mdi-link </v-icon>
-        Regenerate Link
+        Generate Your Own Link
       </v-btn>
     </div>
-    <!-- <snackbar :snackbar="snackbarValue"></snackbar> -->
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
-import { useGithubStore } from "../../store/store";
+import { useGithubStore } from "../store/store";
 import { ref, onMounted } from "vue";
 
 const githubStore = useGithubStore();
@@ -121,12 +118,11 @@ const { repoName } = storeToRefs(githubStore);
 const { contributor } = storeToRefs(githubStore);
 const { selectedColor } = storeToRefs(githubStore);
 const { repoData } = storeToRefs(githubStore);
-const router = useRouter();
+const { selectedIcon } = storeToRefs(githubStore);
 
-function backToCardGenerator() {
-  window.location.href = "/github-card";
+function icnpath() {
+  console.log("selected", selectedIcon);
 }
-
 
 function generateLink() {
   if (userName.value && repoName.value) {
@@ -141,7 +137,6 @@ function generateLink() {
 
 <style scoped="scss">
 .link-btn {
-  margin-top: 2rem;
   margin-right: auto;
   margin-left: auto;
   display: flex;
@@ -161,10 +156,24 @@ function generateLink() {
   margin-right: 2rem;
 }
 .buttons-div {
+  @media only screen and (max-width: 600px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  margin-top: 1rem;
   display: flex;
-  margin-left: 33%;
-  margin-right: 33%;
 }
+
+.container {
+  @media only screen and (max-width: 600px) {
+    width: 500px;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    width: 600px;
+  }
+}
+
 .input-text {
   font-size: large;
   display: flex;
@@ -182,10 +191,6 @@ function generateLink() {
   margin-right: auto;
   background-color: #f9f9f9;
   border-radius: 24px;
-}
-
-.flex-col {
-  display: flex;
 }
 
 .selected-color {

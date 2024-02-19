@@ -76,9 +76,21 @@
 
           <v-row class="center-row">
             <v-card class="icon-card">
-              <div style="display: flex" v-for="item in icons" class="ma-1">
-                <v-btn @click="watchStar()" class="ma-2" fab>
-                  <img width="30" :src="item" alt="" />
+              <div
+                style="display: flex"
+                v-for="item in icons"
+                :key="item.value"
+                class="ma-1"
+              >
+                <v-btn
+                  @click="selectIcon(item)"
+                  class="ma-2"
+                  fab
+                  :class="
+                    item.value === selectedIcon.value ? 'active' : 'not-active'
+                  "
+                >
+                  <img width="30" :src="item.path" alt="" />
                 </v-btn>
               </div>
             </v-card>
@@ -128,13 +140,19 @@
       </div>
 
       <div v-if="selectedLink" class="buttons-div">
-        <v-text-field variant="solo">{{ selectedLink }}</v-text-field>
+        <v-text-field readonly variant="solo">
+          {{ base }}{{ selectedLink }}</v-text-field
+        >
       </div>
-
-      <!-- <snackbar :snackbar="snackbarValue"></snackbar> -->
     </div>
-
-    <p v-if="users">Page visits: {{ users.name }}</p>
+    <v-snackbar color="success" v-model="snackbar">
+      Found the repo
+      <template v-slot:actions>
+        <v-btn color="pink" variant="text" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -147,17 +165,23 @@ import { useDisplay } from "vuetify";
 const githubStore = useGithubStore();
 const { userName } = storeToRefs(githubStore);
 const { repoName } = storeToRefs(githubStore);
-const { users }: any = storeToRefs(githubStore);
 const { selectedLink } = storeToRefs(githubStore);
 const { colors } = storeToRefs(githubStore);
 const { icons } = storeToRefs(githubStore);
 const { selectedColor } = storeToRefs(githubStore);
-const { generatedId } = storeToRefs(githubStore);
-const snackBar = ref(false);
+const { selectedIcon } = storeToRefs(githubStore);
+const base = useRequestURL().origin;
+const snackbar = ref(false);
 
-function watchStar() {
-  console.log("repodata", selectedColor);
+function selectIcon(selectedIcon: any) {
+  selectedIcon = selectedIcon;
 }
+
+watch(selectedLink, (newX) => {
+  if (newX) {
+    snackbar.value = true;
+  }
+});
 
 function generateLink() {
   if (userName.value && repoName.value) {
@@ -194,10 +218,9 @@ function generateLink() {
   @media only screen and (max-width: 600px) {
     margin-left: auto;
     margin-right: auto;
-  };
+  }
   margin-top: 1rem;
   display: flex;
-
 }
 .input-text {
   display: flex;
@@ -205,6 +228,9 @@ function generateLink() {
   align-items: center;
 }
 
+.active {
+  border: 1px solid #0071c5;
+}
 .link-generate-card {
   @media only screen and (min-width: 1200px) {
     width: 600px;
