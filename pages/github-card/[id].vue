@@ -23,7 +23,7 @@
           style="display: flex; transform: translateY(65%); z-index: 99999"
           cols="3"
         >
-          <span class="centered-span"> @nuxt</span>
+          <span class="centered-span"> @nuxt </span>
         </v-col>
       </v-row>
 
