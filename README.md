@@ -1,3 +1,5 @@
+![EXAMPLE1](https://github.com/erdemAltug/mono-frontend-challenge/assets/36854139/e19e4206-86b6-4b83-bdf2-1e21621248a8)
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
